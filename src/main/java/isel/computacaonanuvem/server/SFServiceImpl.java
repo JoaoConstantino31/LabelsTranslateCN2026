@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
-    //ALTERAR
-    private final String projectId = config("GCP_PROJECT_ID", "teu-id-projeto");
-    private final String bucketName = config("LABELS_BUCKET", "teu-bucket");
-    private final String topicId = config("LABELS_TOPIC", "labels-topic");
+
+    private final String projectId = config("GCP_PROJECT_ID", "CN2526-T3-G01");
+    private final String bucketName = config("LABELS_BUCKET", "lab3-leirt-g1");
+    private final String topicId = config("LABELS_TOPIC", "image-processing-topic");
 
     @Override
     public StreamObserver<ImageBlock> uploadImage(StreamObserver<ImageId> responseObserver) {

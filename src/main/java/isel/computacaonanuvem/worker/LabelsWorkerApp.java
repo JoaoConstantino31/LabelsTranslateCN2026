@@ -9,7 +9,7 @@ import com.google.pubsub.v1.PubsubMessage;
 public class LabelsWorkerApp {
 
     public static void main(String[] args) {
-        String projectId = config("GCP_PROJECT_ID", args.length > 0 ? args[0] : "");
+        String projectId = config("GCP_PROJECT_ID", args.length > 0 ? args[0] : "CN2526-T3-G01");
         String subscriptionId = config("LABELS_SUBSCRIPTION", args.length > 1 ? args[1] : "labels-sub");
 
         if (projectId.isBlank()) {

@@ -14,10 +14,10 @@ import java.util.List;
 
 public class SGServiceImpl extends SGServiceGrpc.SGServiceImplBase {
 
-    private final String projectId = config("GCP_PROJECT_ID", "");
-    private final String zone = config("GCP_ZONE", "");
-    private final String serverGroup = config("SERVER_INSTANCE_GROUP", "");
-    private final String workerGroup = config("WORKER_INSTANCE_GROUP", "");
+    private final String projectId = config("GCP_PROJECT_ID", "CN2526-T3-G01");
+    private final String zone = config("GCP_ZONE", "europe-west6-a");
+    private final String serverGroup = config("SERVER_INSTANCE_GROUP", "lab-mig");
+    private final String workerGroup = config("WORKER_INSTANCE_GROUP", "worker-mig");
 
     @Override
     public void scaleServers(ScaleRequest scaleRequest, StreamObserver<ScaleResponse> responseObserver) {
