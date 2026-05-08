@@ -1,50 +1,101 @@
-O que faz cada pasta/ficheiro
+>Este ficheiro README tem por objetivo documentar informações sobre configurações e funções de pastas/ficheiros , pressupostos de execução e testes, para uma melhor compreensão e accesibilidade do utilizador
 
-server/
+# Estrutura do Projeto
 
-GrpcServer → arranca o servidor 
-SFServiceImpl → upload, getLabels, search 
-SGServiceImpl → scaling
+## server/
 
-client/ 
+Responsável pela execução do servidor gRPC e exposição dos serviços.
 
-envia imagem 
-pede resultados
+- **GrpcServer**  
+  Inicializa e arranca o servidor.
 
-storage/ 
+- **SFServiceImpl**  
+  Implementa operações principais:
+  - Upload de imagens  
+  - Obtenção de labels  
+  - Pesquisa
 
-Cloud Storage 
-upload imagem 
-download imagem
+- **SGServiceImpl**  
+  Responsável por lógica de escalabilidade.
 
-pubsub/ 
+---
 
-comunicação assíncrona 
-Publisher → envia mensagens 
-Subscriber → worker recebe
+## client/
 
-firestore/ 
+Contém os clientes responsáveis por interagir com o servidor.
 
-base de dados 
-guardar resultados 
-queries por label/data
+Funções:
+- Envio de imagens
+- Pedido de resultados ao sistema
 
-vision/
+---
 
-deteção de labelsm usa Google Vision API 
+## storage/
 
-translate/ 
+Integração com sistema de armazenamento (Cloud Storage).
 
-traduz labels(inglês → português)
+Funções:
+- Upload de imagens
+- Download de imagens
 
-worker/ 
+---
 
-processar o sistema 
-lê Pub/Sub 
-processa imagem 
-chama vision + translate 
-guarda no Firestore
+## pubsub/
 
-model/ 
+Responsável pela comunicação assíncrona entre componentes.
 
-objetos internos (não gRPC) estrutura de dados para guardar info
+- **Publisher**  
+  Envia mensagens para o sistema.
+
+- **Subscriber**  
+  Recebe mensagens e ativa o processamento (workers).
+
+---
+
+## firestore/
+
+Base de dados do sistema.
+
+Funções:
+- Armazenamento de resultados
+- Execução de queries (por label, data, etc.)
+
+---
+
+## vision/
+
+Integração com a API de visão computacional.
+
+Função:
+- Deteção de labels em imagens (Google Vision API)
+
+---
+
+## translate/
+
+Responsável pela tradução de labels.
+
+Função:
+- Tradução de inglês para português
+
+---
+
+## worker/
+
+Camada de processamento assíncrono.
+
+Fluxo:
+1. Consome mensagens do Pub/Sub  
+2. Processa imagens  
+3. Invoca serviços de Vision e Translate  
+4. Guarda resultados no Firestore  
+
+---
+
+## model/
+
+Define as estruturas de dados internas do sistema.
+
+Notas:
+- Não exposto via gRPC  
+- Utilizado para representação e manipulação interna de informação
