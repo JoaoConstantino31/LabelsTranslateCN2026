@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
 
-    private final String projectId = config("GCP_PROJECT_ID", "CN2526-T3-G01");
+    private final String projectId = config("GCP_PROJECT_ID", "cn2526-t3-g01");
     private final String bucketName = config("LABELS_BUCKET", "lab3-leirt-g1");
     private final String topicId = config("LABELS_TOPIC", "image-processing-topic");
 

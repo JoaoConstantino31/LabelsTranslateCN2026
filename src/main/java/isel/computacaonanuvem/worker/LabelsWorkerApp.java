@@ -5,12 +5,21 @@ import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+
+import static com.google.api.AnnotationsProto.http;
 
 public class LabelsWorkerApp {
 
     public static void main(String[] args) {
-        String projectId = config("GCP_PROJECT_ID", args.length > 0 ? args[0] : "CN2526-T3-G01");
-        String subscriptionId = config("LABELS_SUBSCRIPTION", args.length > 1 ? args[1] : "labels-sub");
+        String projectId = config("GCP_PROJECT_ID", args.length > 0 ? args[0] : "cn2526-t3-g01");
+        String subscriptionId = config("LABELS_SUBSCRIPTION", args.length > 1 ? args[1] : "image-processing-topic-sub");
+
+        System.out.println("--- DIAGNÓSTICO ---");
+        System.out.println("Projeto: " + System.getenv("GCP_PROJECT_ID"));
+        System.out.println("Credenciais: " + System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
+        System.out.println("Email da Conta: " + ((com.google.auth.oauth2.ServiceAccountCredentials) com.google.auth.google-auth-library-oauth2-http.GoogleCredentials.getApplicationDefault()).getClientEmail());
+        System.out.println("-------------------");
 
         if (projectId.isBlank()) {
             System.err.println("Configura GCP_PROJECT_ID ou passa o projectId como primeiro argumento.");

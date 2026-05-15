@@ -15,6 +15,26 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>1.70.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>libraries-bom</artifactId>
+                <version>26.38.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
         <dependency>
             <groupId>javax.annotation</groupId>
@@ -24,59 +44,50 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>1.79.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>1.79.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>1.79.0</version>
         </dependency>
 
         <!-- Google Cloud Storage (Para as imagens) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-storage</artifactId>
-            <version>2.64.1</version>
         </dependency>
 
         <!-- Google Compute Engine (Para listar as instâncias ) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-compute</artifactId>
-            <version>1.71.0</version>
         </dependency>
 
         <!-- Google Cloud Pub/Sub (Para a troca de mensagens) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-pubsub</artifactId>
-            <version>1.150.1</version>
         </dependency>
 
         <!-- Google Cloud Firestore (Para a base de dados) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-firestore</artifactId>
-            <version>3.30.12</version>
         </dependency>
 
         <!-- Google Cloud Vision (Para deteção de labels) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-vision</artifactId>
-            <version>3.40.0</version>
         </dependency>
 
         <!-- Google Cloud Translation (Para traduzir as labels) -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-translate</artifactId>
-            <version>2.42.0</version>
         </dependency>
     </dependencies>
 
