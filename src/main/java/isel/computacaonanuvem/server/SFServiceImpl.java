@@ -68,10 +68,7 @@ public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
                     responseObserver.onNext(ImageId.newBuilder().setId(id).build());
                     responseObserver.onCompleted();
                 } catch (Exception e) {
-                    responseObserver.onError(Status.INTERNAL
-                            .withDescription("Erro ao guardar imagem ou publicar pedido")
-                            .withCause(e)
-                            .asRuntimeException());
+                    responseObserver.onError(internalError("Erro ao guardar imagem ou publicar pedido", e));
                 }
             }
         };
@@ -168,5 +165,14 @@ public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
             return fallback;
         }
         return new Date(Timestamps.toMillis(timestamp));
+    }
+
+    private static RuntimeException internalError(String message, Exception e) {
+        e.printStackTrace();
+        String detail = e.getMessage();
+        return Status.INTERNAL
+                .withDescription(detail == null || detail.isBlank() ? message : message + ": " + detail)
+                .withCause(e)
+                .asRuntimeException();
     }
 }
