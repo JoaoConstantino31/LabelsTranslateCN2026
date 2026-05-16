@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SGServiceImpl extends SGServiceGrpc.SGServiceImplBase {
 
-    private final String projectId = config("GCP_PROJECT_ID", "CN2526-T3-G01");
+    private final String projectId = config("GCP_PROJECT_ID", "cn2526-t3-g01");
     private final String zone = config("GCP_ZONE", "europe-west6-a");
     private final String serverGroup = config("SERVER_INSTANCE_GROUP", "lab-mig");
     private final String workerGroup = config("WORKER_INSTANCE_GROUP", "worker-mig");
@@ -52,7 +52,12 @@ public class SGServiceImpl extends SGServiceGrpc.SGServiceImplBase {
 
         try {
             List<String> command = new ArrayList<>();
-            command.add("gcloud");
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                command.add("gcloud.cmd");
+            } else {
+                command.add("gcloud");
+            }
             command.add("compute");
             command.add("instance-groups");
             command.add("managed");
@@ -78,6 +83,7 @@ public class SGServiceImpl extends SGServiceGrpc.SGServiceImplBase {
                     .build());
             responseObserver.onCompleted();
         } catch (Exception e) {
+            e.printStackTrace();
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Erro ao escalar " + kind)
                     .withCause(e)

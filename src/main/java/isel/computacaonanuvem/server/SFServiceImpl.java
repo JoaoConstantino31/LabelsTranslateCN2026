@@ -125,7 +125,7 @@ public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
             }
 
             Date startDate = toDateOrDefault(searchRequest.getStartDate(), new Date(0));
-            Date endDate = toDateOrDefault(searchRequest.getEndDate(), new Date(Long.MAX_VALUE));
+            Date endDate = toDateOrDefault(searchRequest.getEndDate(), new Date(253402300799000L));
 
             FileList.Builder files = FileList.newBuilder();
             for (QueryDocumentSnapshot doc : FirestoreOperations.searchByLabelAndDate(label, startDate, endDate)) {
@@ -136,6 +136,7 @@ public class SFServiceImpl extends SFServiceGrpc.SFServiceImplBase {
             responseObserver.onNext(files.build());
             responseObserver.onCompleted();
         } catch (Exception e) {
+            e.printStackTrace();
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Erro ao pesquisar imagens")
                     .withCause(e)
