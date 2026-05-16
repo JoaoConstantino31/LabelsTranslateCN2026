@@ -11,21 +11,30 @@ import java.util.Map;
 
 public class FirestoreOperations {
     private static final String COLLECTION = "labels_analysis";
+    private static final String DATABASE_ID = "lab4-leirt-g1";
+
+    private static Firestore getFirestore() {
+        return FirestoreOptions.newBuilder()
+                .setDatabaseId(DATABASE_ID)
+                .build()
+                .getService();
+    }
+
 
     // O Servidor gRPC usa isto para ler o resultado
     public static DocumentSnapshot getResult(String requestId) throws Exception {
-        Firestore db = FirestoreOptions.getDefaultInstance().getService();
+        Firestore db = getFirestore();
         return db.collection(COLLECTION).document(requestId).get().get();
     }
 
     // O Worker (Labels App) usa isto para guardar o resultado final
     public static void storeResult(String requestId, Map<String, Object> data) throws Exception {
-        Firestore db = FirestoreOptions.getDefaultInstance().getService();
+        Firestore db = getFirestore();
         db.collection(COLLECTION).document(requestId).set(data).get();
     }
 
     public static List<QueryDocumentSnapshot> searchByLabelAndDate(String label, Date startDate, Date endDate) throws Exception {
-        Firestore db = FirestoreOptions.getDefaultInstance().getService();
+        Firestore db = getFirestore();
         return db.collection(COLLECTION)
                 .whereArrayContains("labelsList", label.toLowerCase())
                 .whereGreaterThanOrEqualTo("processingDate", startDate)

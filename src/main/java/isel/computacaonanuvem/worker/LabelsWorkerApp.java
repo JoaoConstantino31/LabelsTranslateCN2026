@@ -18,7 +18,6 @@ public class LabelsWorkerApp {
         System.out.println("--- DIAGNÓSTICO ---");
         System.out.println("Projeto: " + System.getenv("GCP_PROJECT_ID"));
         System.out.println("Credenciais: " + System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
-        System.out.println("Email da Conta: " + ((com.google.auth.oauth2.ServiceAccountCredentials) com.google.auth.google-auth-library-oauth2-http.GoogleCredentials.getApplicationDefault()).getClientEmail());
         System.out.println("-------------------");
 
         if (projectId.isBlank()) {
