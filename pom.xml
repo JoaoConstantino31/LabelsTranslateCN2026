@@ -101,6 +101,68 @@
         </extensions>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+
+                <executions>
+
+                    <!-- SERVER JAR -->
+                    <execution>
+                        <id>server</id>
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <finalName>server</finalName>
+
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>
+                                        isel.computacaoanuvem.server.LabelServer
+                                    </mainClass>
+                                </transformer>
+                            </transformers>
+
+                        </configuration>
+                    </execution>
+
+                    <!-- WORKER JAR -->
+                    <execution>
+                        <id>worker</id>
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <finalName>worker</finalName>
+
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>
+                                        isel.computacaoanuvem.worker.LabelsWorkerApp
+                                    </mainClass>
+                                </transformer>
+                            </transformers>
+
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
